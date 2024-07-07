@@ -1,3 +1,3 @@
-module github.com/sourya95/ScratchChain
+module blockchain
 
 go 1.22.5

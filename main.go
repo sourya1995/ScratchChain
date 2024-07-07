@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/sourya/ScratchChain/blockchain"
+	"blockchain/blockchain"
 )
 
 func main() {
