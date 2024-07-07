@@ -1,18 +1,17 @@
 package blockchain
 
 import (
-	"crypto/md5"
 	"bytes"
+	"crypto/md5"
 	"math/rand"
 	"time"
 )
 
-
 type Block struct {
-	Hash string
-	Data string
-	PrevHash string
-	Nonce int
+	Hash         string
+	Data         string
+	PrevHash     string
+	Nonce        int
 	Transactions []*Transaction
 }
 
@@ -35,11 +34,10 @@ func CreateBlock(data string, prevHash string, transactions []*Transaction) *Blo
 
 func Genesis() *Block {
 	coinbaseTransaction := &Transaction{
-		Sender: "Coinbase",
+		Sender:    "Coinbase",
 		Recipient: "Genesis",
-		Amount: 0.0,
-		Coinbase: true,
+		Amount:    0.0,
+		Coinbase:  true,
 	}
 	return CreateBlock("Genesis", "", []*Transaction{coinbaseTransaction})
 }
-
