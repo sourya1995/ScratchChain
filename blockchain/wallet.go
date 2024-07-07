@@ -38,5 +38,34 @@ func NewWallet() (*Wallet, error) {
 	}, nil
 }
 
+func(wallet *Wallet) SignTransaction(transaction *Transaction) (string, error) {
+	dataString := fmt.Sprintf("%s%s%f%t", transaction.Sender, transaction.Recipient, transaction.Amount, transaction.Coinbase)
+	hash := sha256.Sum256([]byte(dataString))
+	signature, err := rsa.SignPKCS1v15(rand.Reader, wallet.PrivateKey, crypto.SHA256, hash[:])
+	if(err != nil) {
+		return "", err
+	}
+
+	return base64.RawStdEncoding.EncodeToString(signature), nil
+}
+
+func VerifyTransaction(transaction *Transaction, publicKey *rsa.PublicKey, signature string) error {
+	dataString := fmt.Sprintf("%s%s%f%t", transaction.Sender, transaction.Receiver, transaction.Amount, transaction.Coinbase)
+	hash := sha256.Sum256([]byte(dataString))
+	signatureBytes, err := base64.StdEncoding.DecodeString(signature)
+	if err != nil {
+		return err
+	}
+
+	err = rsa.VerifyPKCS1v15(publicKey, crypto.SHA256, hash[:], signatureBytes)
+	if err != nil {
+		return errors.New("invalid signature")
+	}
+
+	return nil
+}
+
+
+
 
 
