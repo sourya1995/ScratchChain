@@ -4,7 +4,7 @@ type Blockchain struct {
 	Blocks []*Block
 }
 
-func InitBlockchain() *Blockchain {
+func InitBlockChain() *Blockchain {
 	return &Blockchain{[]*Block{Genesis()}}
 }
 
